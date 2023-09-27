@@ -73,7 +73,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  int count = 1;
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -91,9 +91,83 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 1);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 1);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 1);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, 1);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, 1);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, 1);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, 1);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_13, 1);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, 1);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, 1);
   while (1)
   {
-	  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+	  if(count > 12) count = 1;
+	  switch (count){
+	  case 1:
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 1);
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
+		  count = count + 1;
+		  break;
+	  case 2:
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);
+		  count = count + 1;
+		  break;
+	  case 3:
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 1);
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);
+		  count = count + 1;
+		  break;
+	  case 4:
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 0);
+		  count = count + 1;
+		  break;
+	  case 5:
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 1);
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, 0);
+		  count = count + 1;
+		  break;
+	  case 6:
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, 1);
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, 0);
+		  count = count + 1;
+		  break;
+	  case 7:
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, 1);
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, 0);
+		  count = count + 1;
+		  break;
+	  case 8:
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, 1);
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, 0);
+		  count = count + 1;
+		  break;
+	  case 9:
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, 1);
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_13, 0);
+		  count = count + 1;
+		  break;
+	  case 10:
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_13, 1);
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, 0);
+		  count = count + 1;
+		  break;
+	  case 11:
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, 1);
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, 0);
+		  count = count + 1;
+		  break;
+	  case 12:
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, 1);
+		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0);
+		  count = count + 1;
+		  break;
+	  }
 	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
@@ -150,14 +224,20 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7
+                          |GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_11
+                          |GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : LED_RED_Pin */
-  GPIO_InitStruct.Pin = LED_RED_Pin;
+  /*Configure GPIO pins : PA4 PA5 PA6 PA7
+                           PA8 PA9 PA10 PA11
+                           PA12 PA13 PA14 PA15 */
+  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7
+                          |GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_11
+                          |GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(LED_RED_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
 }
 
