@@ -22,7 +22,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "func.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -73,7 +73,9 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-  int count = 1;
+  int sec = 0;
+  int min = 0;
+  int hour = 6;
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -91,83 +93,34 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 1);
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 1);
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 1);
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, 1);
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, 1);
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, 1);
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, 1);
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_13, 1);
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, 1);
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, 1);
+  if(sec < 0 || min < 0 || hour < 0 || sec >= 60 || min >= 60 || hour >= 12){
+	  sec = 0;
+	  min = 0;
+	  hour = 0;
+  }
   while (1)
   {
-	  if(count > 12) count = 1;
-	  switch (count){
-	  case 1:
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 1);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 0);
-		  count = count + 1;
-		  break;
-	  case 2:
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 0);
-		  count = count + 1;
-		  break;
-	  case 3:
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, 1);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 0);
-		  count = count + 1;
-		  break;
-	  case 4:
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, 1);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 0);
-		  count = count + 1;
-		  break;
-	  case 5:
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_8, 1);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, 0);
-		  count = count + 1;
-		  break;
-	  case 6:
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, 1);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, 0);
-		  count = count + 1;
-		  break;
-	  case 7:
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_10, 1);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, 0);
-		  count = count + 1;
-		  break;
-	  case 8:
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, 1);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, 0);
-		  count = count + 1;
-		  break;
-	  case 9:
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, 1);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_13, 0);
-		  count = count + 1;
-		  break;
-	  case 10:
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_13, 1);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, 0);
-		  count = count + 1;
-		  break;
-	  case 11:
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_14, 1);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, 0);
-		  count = count + 1;
-		  break;
-	  case 12:
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, 1);
-		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, 0);
-		  count = count + 1;
-		  break;
-	  }
+		  if(sec < 0 || min < 0 || hour < 0){
+			  sec = 0;
+			  min = 0;
+			  hour = 0;
+		  }
+		  if(sec >= 60){
+			  sec = 0;
+			  min = min + 1;
+			  if(min >= 60){
+				  min = 0;
+				  hour = hour + 1;
+				  if(hour >= 12){
+					  hour = 0;
+				  }
+			  }
+		  }
+		  clearAllClock();
+		  setNumberOnClock(sec / 5);
+		  setNumberOnClock(min / 5);
+		  setNumberOnClock(hour);
+		  sec = sec + 1;
 	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
