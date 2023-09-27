@@ -1,1 +1,2 @@
-LED7SEG.c:10:6:display7SEG	16	static
+LED7SEG.c:10:6:display7SEG_1	16	static
+LED7SEG.c:114:6:display7SEG_2	16	static

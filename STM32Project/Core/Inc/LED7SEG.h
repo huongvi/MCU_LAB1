@@ -10,6 +10,7 @@
 
 #include "main.h"
 
-void display7SEG(int count);
+void display7SEG_1(int count);
+void display7SEG_2(int count);
 
 #endif /* INC_LED7SEG_H_ */
